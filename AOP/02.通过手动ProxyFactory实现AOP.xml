@@ -1,0 +1,6 @@
+		PostService ps = new PostService();
+		ProxyFactory weaver = new ProxyFactory(ps);
+		PostTimeAdvice postTimeAdvice =new PostTimeAdvice();
+		weaver.addAdvice(postTimeAdvice);
+		PostService proxyBean = (PostService)weaver.getProxy();
+		proxyBean.post();

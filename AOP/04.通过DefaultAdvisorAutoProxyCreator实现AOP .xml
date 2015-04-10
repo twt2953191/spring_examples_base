@@ -1,0 +1,48 @@
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	
+	<bean id="postService" class="chap03.PostService"></bean>
+ 
+	<bean id="postTimeAdvice" class="chap03.PostTimeAdvice" />
+ 
+ 	
+	<bean id="customerServiceProxy"  class="org.springframework.aop.framework.ProxyFactoryBean">
+ 
+		<property name="target" ref="postService" />
+ 
+		<property name="interceptorNames">
+			<list>
+				<value>customerAdvisor</value>
+			</list>
+		</property>
+	</bean>
+ 
+	<bean id="customerPointcut" class="org.springframework.aop.support.NameMatchMethodPointcut">
+		<!-- 
+		<property name="mappedName" value="post" />
+		 -->
+		<property name="mappedNames">
+			<list>
+				<value>post</value>
+			</list>
+		</property>
+	</bean>
+ 
+	<bean id="customerAdvisor"  class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="pointcut" ref="customerPointcut" />
+		<property name="advice" ref="postTimeAdvice" />
+	</bean>
+	
+	<!-- 自动管理 -->
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+	</bean>
+</beans>

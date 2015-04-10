@@ -1,0 +1,14 @@
+   <bean id="postVarifyAspect" class="chap03.introduction.PostVarifyAspect"></bean>
+    <bean id="post2" class="chap03.introduction.PostImpl"></bean>
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	<!--
+	
+	@Aspect
+public class PostVarifyAspect {
+    @DeclareParents(
+            value = "chap03.introduction.PostImpl",
+            defaultImpl = VarifyImpl.class)
+        public Varify varify;
+}
+
+-->
