@@ -1,0 +1,66 @@
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	
+	<!-- 数据源可以采用spring自带的，也可以使用第三方 如 common-dhcp c3po, 淘宝的durid ; jndi-->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="url" value="jdbc:mysql://localhost:3306/springdb?useUnicode=true&amp;characterEncoding=utf-8"></property>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+	
+	<bean id="vehicleDao" class="com.jdbc.JdbcVehicleDao">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<bean id="vehicleDao2" class="com.jdbc.JdbcVehicleDao2">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<bean id="vehicleDao3" class="com.jdbc.JdbcVehicleDao3">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<bean id="vehicleDao4" class="com.jdbc.JdbcVehicleDao4">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<bean id="jdbcTemplateVehicleDao" class="com.jdbc.JdbcTemplateVehicleDao">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<bean id="vehicleDao5" class="com.jdbc.JdbcVehicleDao5">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	
+	
+	<!-- exception -->
+	
+	<bean id="MySQL" class="org.springframework.jdbc.support.SQLErrorCodes">
+		<property name="databaseProductNames">
+			<value>Mysql</value>
+		</property>
+		<property name="useSqlStateForTranslation">
+			<value>true</value>
+		</property>
+		<property name="customTranslations">
+			<ref local="customSQLErrorCode"/>
+		</property>
+	</bean>
+	
+	<bean id="customSQLErrorCode" class="org.springframework.jdbc.support.CustomSQLErrorCodesTranslation">
+		<property name="errorCodes">
+			<value>12500</value>
+		</property>
+		<property name="exceptionClass">
+			<value>com.jdbc.exception.MyDataAccessException</value>
+		</property>
+	</bean>
+	
+</beans>
