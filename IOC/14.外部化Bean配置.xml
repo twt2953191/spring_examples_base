@@ -1,0 +1,5 @@
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>config.properties</value>
+		</property>
+	</bean>

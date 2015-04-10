@@ -1,0 +1,29 @@
+
+定义对象
+	
+@Configurable(autowire=Autowire.BY_NAME,
+dependencyCheck=true)
+public class Order {
+	Format dateFormat;
+
+	public Format getDateFormat() {
+		return dateFormat;
+	}
+
+	@Autowired
+	public void setDateFormat(Format dateFormat) {
+		this.dateFormat = dateFormat;
+	}
+}
+
+
+ <context:spring-configured/>
+	<bean class="chap02.annotation.Order">
+		<property name="dateFormat" ref="dateFormat"></property>
+	</bean>
+
+
+使用 即使没有为新建的Order对象设置dataFormat对象，属性已经被spring容器赋值了。
+		Order o = new Order();
+		Format dateFormat = o.getDateFormat();
+		System.out.println("dateFormat:"+dateFormat);	

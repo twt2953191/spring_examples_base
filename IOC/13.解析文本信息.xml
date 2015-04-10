@@ -1,0 +1,12 @@
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<value>messages</value>
+		</property>
+	</bean>
+	
+	/*	
+		String message = ctx.getMessage("head",new String[]{"wawa"},Locale.US);
+		assertEquals("hello spring said by wawa", message);
+		String message2 = ctx.getMessage("head",new String[]{"娃娃"},Locale.CHINA);
+		assertEquals("你好 spring said by 娃娃", message2);	
+	*/
