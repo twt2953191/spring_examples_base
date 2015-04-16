@@ -1,0 +1,41 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+		<property name="messageConverters">
+			<list>
+				<!-- We only have one message converter for the RestTemplate, namely 
+					the XStream Marshller -->
+				<!-- <bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter"> 
+					<constructor-arg> <bean class="org.springframework.oxm.xstream.XStreamMarshaller"> 
+					<property name="annotatedClasses"> <list> <value>dw.spring3.rest.client.bean.Employee</value> 
+					<value>dw.spring3.rest.client.bean.EmployeeList</value> </list> </property> 
+					</bean> </constructor-arg> </bean> -->
+				<bean
+					class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+					<constructor-arg>
+						<bean id="jaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+							<property name="classesToBeBound">
+								<list>
+									<value>dw.spring3.rest.bean.Employee</value>
+									<value>dw.spring3.rest.bean.EmployeeList</value>
+								</list>
+							</property>
+						</bean>
+					</constructor-arg>
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>
+
+
+
